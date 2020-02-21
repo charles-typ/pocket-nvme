@@ -1,0 +1,37 @@
+#!/bin/bash
+
+sudo -i
+
+export CRAIL_HOME=/root/crail/
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+
+# Remove this line since these source are not maintained anymore
+sed -e '/jessie-updates/ s/^#*/#/' -i /etc/apt/sources.list
+sed -e '/jessie-backports/ s/^#*/#/' -i /etc/apt/sources.list.d/backports.list
+
+apt-get update && apt-get install -y ssh rsync vim openjdk-8-jdk net-tools iputils-ping build-essential automake python-pip libcap-ng-dev gawk pciutils libconfig-dev libnuma-dev libpciaccess-dev libaio-dev libevent-dev g++-multilib kmod tmux 
+
+cp -r /home/admin/crail-deployment/crail-apache ./crail
+
+cp -r /home/admin/reflex ./reflex
+
+cd ./reflex
+
+git checkout -b pocket-controller-stats
+
+git pull origin pocket-controller-stats
+
+make
+
+sed -i '/crail.namenode.address/c\crail.namenode.address                  crail://10.1.0.10:9070' ../crail/conf/crail-site.conf
+
+./setup.sh
+
+./dp/ix &> /dev/null &
+
+cd ../crail
+
+./bin/crail datanode -t com.ibm.crail.storage.reflex.ReFlexStorageTier 
+
+
+
