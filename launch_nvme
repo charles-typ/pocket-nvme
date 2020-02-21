@@ -25,6 +25,8 @@ sed -i '/crail.namenode.address/c\crail.namenode.address                  crail:
 
 ./setup.sh
 
+printf "\n"
+
 ./dp/ix &> /dev/null &
 
 cd ../crail
