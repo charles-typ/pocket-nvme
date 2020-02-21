@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sudo -i
-
 export CRAIL_HOME=/root/crail/
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 
