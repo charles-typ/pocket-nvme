@@ -31,6 +31,9 @@ cd /root/reflex
 
 cd /root/crail
 
+export CRAIL_HOME=/root/crail/
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+
 ./bin/crail datanode -t com.ibm.crail.storage.reflex.ReFlexStorageTier 
 
 
