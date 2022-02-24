@@ -1,0 +1,6 @@
+#!/bin/bash
+
+pkill java
+pkill python
+pkill ix
+pkill tmux
